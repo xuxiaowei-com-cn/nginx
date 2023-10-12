@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-log-deployment
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          # 国内镜像：registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/nginx:1.25.2-host.access.log
+          # 国外镜像：xuxiaoweicomcn/nginx:1.25.2-host.access.log
+          image: registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/nginx:1.25.2-host.access.log
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            # 挂载主机的时区文件
+            - name: time-zone
+              mountPath: /etc/localtime
+      volumes:
+        - name: time-zone
+          hostPath:
+            path: /etc/localtime
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-log-service
+  namespace: default
+spec:
+  ports:
+    - nodePort: 30560
+      port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: nginx
+  type: NodePort
