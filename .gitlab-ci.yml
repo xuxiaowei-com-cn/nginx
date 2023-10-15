@@ -1,5 +1,8 @@
 stages:
+  # 阶段名称：构建
   - docker-build
+  # 代码同步
+  - sync
 
 docker-build:
   stage: docker-build
