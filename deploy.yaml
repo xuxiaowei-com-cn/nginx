@@ -15,9 +15,9 @@ spec:
     spec:
       containers:
         - name: nginx
-          # 国内镜像：registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/nginx:1.25.2-host.access.log
+          # 国内镜像：registry.cn-qingdao.aliyuncs.com/xuxiaowei/nginx:1.25.2-host.access.log
           # 国外镜像：xuxiaoweicomcn/nginx:1.25.2-host.access.log
-          image: registry.jihulab.com/xuxiaowei-cloud/xuxiaowei-cloud/nginx:1.25.2-host.access.log
+          image: registry.cn-qingdao.aliyuncs.com/xuxiaowei/nginx:1.25.2-host.access.log
           ports:
             - containerPort: 80
           volumeMounts:
